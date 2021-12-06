@@ -1,0 +1,262 @@
+\ProvidesPackage{szumaster}
+
+\RequirePackage[margin=25mm]{geometry}
+\RequirePackage[UTF8]{ctex}
+\RequirePackage{etoolbox}
+\RequirePackage{fancyhdr}
+\RequirePackage{titletoc,textcomp,times}
+\RequirePackage{titlesec,caption}
+\RequirePackage{indentfirst}
+
+
+\newcommand{\@coverCataNum}{}
+\newcommand{\@coverUDC}{}
+\newcommand{\@coverSchoolCode}{}
+\newcommand{\@coverSecret}{}
+\newcommand{\@tutor}{}
+\newcommand{\@titleEN}{}
+\newcommand{\@major}{}
+\newcommand{\@instrument}{}
+
+\newcommand{\bareDate}{\makebox[40mm][s]{\hspace{\stretch{2}}年\hspace{\stretch{1}}月\hspace{\stretch{1}}日}}
+\renewcommand{\contentsname}{\centering\songti\zihao{2}{\textbf{目录}}}
+
+
+
+\setCJKmainfont{SimSun}
+\setmainfont{Times New Roman}
+
+\def\coverCataNum#1{
+    \renewcommand{\@coverCataNum}{#1}
+}
+\def\coverUDC#1{
+    \renewcommand{\@coverUDC}{#1}
+}
+\def\coverSchoolCode#1{
+    \renewcommand{\@coverSchoolCode}{#1}
+}
+\def\coverSecret#1{
+    \renewcommand{\@coverSecret}{#1}
+}
+\def\tutor#1{
+    \renewcommand{\@tutor}{#1}
+}
+\def\titleEN#1{
+    \renewcommand{\@titleEN}{#1}
+}
+\def\major#1{
+    \renewcommand{\@major}{#1}
+}
+\def\instrument#1{
+    \renewcommand{\@instrument}{#1}
+}
+
+% article.cls, line 203:
+% from https://www.zhihu.com/question/313667025
+% for removing the page number
+\renewcommand\maketitle{\par
+\begingroup
+\renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+\def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+\long\def\@makefntext##1{\parindent 1em\noindent
+\hb@xt@1.8em{%
+\hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+\if@twocolumn
+    \ifnum \col@number=\@ne
+        \@maketitle
+    \else
+        \twocolumn[\@maketitle]%
+    \fi
+\else
+    \newpage
+    \global\@topnum\z@   % Prevents figures from going at top of page.
+    \@maketitle
+\fi
+% \thispagestyle{plain}\@thanks  % <<< 在这里
+\endgroup
+% \setcounter{footnote}{0}%
+% \global\let\thanks\relax
+% \global\let\maketitle\relax
+% \global\let\@maketitle\relax
+% \global\let\@thanks\@empty
+% \global\let\@author\@empty
+% \global\let\@date\@empty
+% \global\let\@title\@empty
+% \global\let\title\relax
+% \global\let\author\relax
+% \global\let\date\relax
+% \global\let\and\relax
+}
+
+\def\@maketitle
+{
+    \newpage
+    \thispagestyle{empty}
+    \begin{center}
+        \heiti\zihao{-4}{
+            \makebox[15mm][s]{分类号}\underline{\makebox[20mm][c]{\@coverCataNum}} \hfill \makebox[20mm][s]{学校代码}\underline{\makebox[20mm][c]{\@coverSchoolCode}} \\
+            \makebox[15mm][s]{U~D~C}\underline{\makebox[20mm][c]{\@coverUDC}} \hfill  \makebox[20mm][s]{密级}\underline{\makebox[20mm][c]{\@coverSecret}}\\
+        }
+        \vspace{2\baselineskip}
+        \songti\zihao{2}深圳大学硕士学位论文\\
+        \vspace{1\baselineskip}
+        \heiti\zihao{3}{\@title}
+        \vspace{4\baselineskip}
+        \begin{spacing}{2.0}
+            \songti\zihao{3}{
+                \makebox[40mm][s]{学位申请人姓名}\underline{\makebox[70mm][c]{\@author}}\\
+                \makebox[40mm][s]{专业名称}\underline{\makebox[70mm][c]{\@major}}\\
+                \makebox[40mm][s]{学院（系、所）}\underline{\makebox[70mm][c]{\@instrument}}\\
+                \makebox[40mm][s]{指导教师姓名}\underline{\makebox[70mm][c]{\@tutor}}\\
+            }
+        \end{spacing}
+    \end{center}
+    \newpage
+    \clearpage
+    \thispagestyle{empty}
+    \songti{
+        \vspace{2\baselineskip}	%空两行
+        \begin{center}
+            \textbf{
+                \zihao{3}{深圳大学学位论文原创性声明和使用授权说明}\\
+                \vspace{1\baselineskip}	%空一行
+                \zihao{4}{原创性声明}\\
+            }
+        \end{center}
+
+        \zihao{-4}{
+            本人郑重声明：所呈交的学位论文\uline{~~\@title~~}是本人在导师的指导下，独立进行研究工作所取得的成果。除文中已经注明引用的内容外，本论文不含任何其他个人或集体已经发表或撰写的作品或成果。对本文的研究做出重要贡献的个人和集体，均已在文中以明确方式标明。本声明的法律后果由本人承担。\\
+
+            论文作者签名：        \hfill               日期： \bareDate	\\
+        }
+
+        \vspace{4\baselineskip}
+        \begin{center}
+            \textbf{\zihao{3}{学位论文使用授权说明}}\\
+        \end{center}
+
+        \zihao{-4}{
+            \vspace{1\baselineskip}	%空两行
+            本学位论文作者完全了解深圳大学关于收集、保存、使用学位论文的规定，即：研究生在校攻读学位期间论文工作的知识产权单位属深圳大学。学校有权保留学位论文并向国家主管部门或其他机构送交论文的电子版和纸质版，允许论文被查阅和借阅。本人授权深圳大学可以将学位论文的全部或部分内容编入有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存、汇编学位论文。\\
+
+            论文作者签名：         \hfill               \makebox[54mm][l]{ 导师签名： }
+            \vspace{0.5\baselineskip}	%空一行
+
+            日期：   \bareDate       \hfill       日期：   \bareDate \\
+
+        }
+    }
+
+}
+\newtoggle{abstractEN}
+\newtoggle{abstractPageNum}
+\togglefalse{abstractEN}
+\toggletrue{abstractPageNum}
+\def\abstract{
+    \newpage 
+    \thispagestyle{fancy}
+    
+    \iftoggle{abstractEN}{
+        \fancyhead[OC]{\songti\zihao{5}{\@titleEN}}
+        \addcontentsline{toc}{section}{Abstract}
+    }{
+        \fancyhead[OC]{\songti\zihao{5}{\@title}}
+        \addcontentsline{toc}{section}{摘要}
+        % \pagenumbering{Roman}
+    }
+    \iftoggle{abstractPageNum}{
+        \pagenumbering{Roman}
+        % need \global
+        \global\togglefalse{abstractPageNum}
+    }{}
+    \vspace{1\baselineskip}    
+    \begin{center}
+        \iftoggle{abstractEN}{
+            \setmainfont{Lucida Console}{\zihao{2}{Abstract}}
+        }{
+            \songti\zihao{2}{\textbf{摘要}}
+        }
+    \end{center}
+    \songti\zihao{-4}
+    \vspace{2\baselineskip}
+    \hspace{1.5em}
+}
+\def\keyword{
+    \vspace{1\baselineskip}
+    \songti{\zihao{-4}
+    \hspace{1.5em}
+    \iftoggle{abstractEN}{
+        \textbf{Key word:}
+    }{
+        \textbf{关键词：}
+    }}
+}
+%%%%%index
+\setcounter{tocdepth}{3}	%设置目录树显示深度
+%调整目录显示规则
+\titlecontents{section}[0em]{\zihao{4}}{第~\thecontentslabel~章\hspace{1em}}{}{\titlerule*{$\cdot$}\contentspage}%
+\titlecontents{subsection}[2em]{\zihao{4}}{\thecontentslabel\hspace{1em}}{}{\titlerule*{$\cdot$}\contentspage}
+\titlecontents{subsubsection}[4em]{\zihao{4}}{\thecontentslabel\hspace{1em}}{}{\titlerule*{$\cdot$}\contentspage}
+\titlecontents{subsubsubsection}[4em]{\zihao{4}}{\thecontentslabel\hspace{1em}}{}{\titlerule*{$\cdot$}\contentspage}
+\titlecontents{figure}[0em]{\zihao{4}}{图~\thecontentslabel\hspace{1em}}{}{\titlerule*{$\cdot$}\contentspage}
+\titlecontents{table}[0em]{\zihao{4}}{表~\thecontentslabel\hspace{1em}}{}{\titlerule*{$\cdot$}\contentspage}
+%目录样式
+\let\savedtableofcontents\tableofcontents
+\def\tableofcontents{%
+    \clearpage
+    \pagestyle{empty}
+    \savedtableofcontents
+	\newpage
+    \pagestyle{fancy}
+    \fancyhead[OC]{\songti\zihao{5}{\@title}}
+    \fancyfoot[C]{\thepage}
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+}
+% 参考文献
+\let\savedbibliographystyle\bibliographystyle
+\renewcommand{\bibliographystyle}[1]{
+	\clearpage
+	\songti\zihao{5}{\savedbibliographystyle{#1}}
+	\addcontentsline{toc}{section}{参考文献}
+}
+% 重新定义标题显示规则
+\titleformat{\section}{\clearpage\centering\heiti\bfseries\zihao{-3}}{第~\thesection~章}{12pt}{}{}
+\titleformat{\subsection}{\songti\bfseries\zihao{4}}{\thesubsection}{12pt}{}{}
+\titleformat{\subsubsection}{\songti\bfseries\zihao{-4}}{\thesubsubsection}{12pt}{}{}
+
+\newenvironment{szuAppendix}[1]{
+	\clearpage
+	\addcontentsline{toc}{section}{#1} % 在目录中显示附录
+	\vspace{1\baselineskip}	
+	\begin{center}
+		\fangsong\zihao{-3}{\textbf{#1}}	%Lucida Console
+	\end{center}
+	\vspace{1\baselineskip}
+	\songti\zihao{5}
+	
+}{}
+\DeclareCaptionFont{wuhao}{\zihao{5}}
+\newcommand{\xiaowu}{\zihao{-5}}
+\captionsetup{labelfont=bf,font=wuhao}
+\renewcommand{\thefigure}{\arabic{figure}}
+\renewcommand{\thetable}{\arabic{table}}
+\renewcommand{\refname}{\fangsong\zihao{-3}{\textbf{参~~考~~文~~献}}}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+
+% 引用上标
+\makeatletter
+\def\@cite#1#2{\textsuperscript{[{#1\if@tempswa , #2\fi}]}}
+% 公式、表、图、（TODO：算法）重新编号
+\@addtoreset{equation}{section}
+\@addtoreset{table}{section}
+\@addtoreset{figure}{section}
+\makeatother
+% 更改公式、表、图、（TODO：算法）的编号格式
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\renewcommand{\thefigure}{\thesection-\arabic{figure}}
+\captionsetup[figure]{labelsep=space,labelfont=normalfont}
+\renewcommand{\thetable}{\thesection-\arabic{figure}}
+\captionsetup[table]{labelsep=space,labelfont=normalfont}
+\endinput
