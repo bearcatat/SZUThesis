@@ -23,6 +23,7 @@
 
 
 
+
 \setCJKmainfont{SimSun}
 \setmainfont{Times New Roman}
 
@@ -220,10 +221,20 @@
 	\songti\zihao{5}{\savedbibliographystyle{#1}}
 	\addcontentsline{toc}{section}{参考文献}
 }
+% 添加小节
+\setcounter{secnumdepth}{4}
+\newcounter{newparagraph}[subsubsection]
+\renewcommand{\thenewparagraph}{\arabic{newparagraph}}
+\let\savedparagraph\paragraph
+\renewcommand{\paragraph}[1]{
+    \stepcounter{newparagraph}
+    \savedparagraph{#1}
+}
 % 重新定义标题显示规则
 \titleformat{\section}{\clearpage\centering\heiti\bfseries\zihao{-3}}{第~\thesection~章}{12pt}{}{}
 \titleformat{\subsection}{\songti\bfseries\zihao{4}}{\thesubsection}{12pt}{}{}
 \titleformat{\subsubsection}{\songti\bfseries\zihao{-4}}{\thesubsubsection}{12pt}{}{}
+\titleformat{\paragraph}{\songti\zihao{-4}}{(\thenewparagraph)~~}{0pt}{}{}
 
 \newenvironment{szuAppendix}[1]{
 	\clearpage
