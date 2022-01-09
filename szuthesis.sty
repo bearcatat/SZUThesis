@@ -1,4 +1,4 @@
-\ProvidesPackage{szumaster}
+\ProvidesPackage{szuthesis}
 
 \RequirePackage[margin=25mm]{geometry}
 \RequirePackage[UTF8]{ctex}
@@ -220,6 +220,8 @@
 	\clearpage
 	\songti\zihao{5}{\savedbibliographystyle{#1}}
 	\addcontentsline{toc}{section}{参考文献}
+    \fancyhead[R]{}
+    \fancyhead[L]{}
 }
 % 添加小节
 \setcounter{secnumdepth}{4}
@@ -257,7 +259,10 @@
 \renewcommand{\refname}{\fangsong\zihao{-3}{\textbf{参~~考~~文~~献}}}
 \renewcommand{\figurename}{图}
 \renewcommand{\tablename}{表}
-
+% \floatname{algorithm}{算法}
+\SetAlgorithmName{算法}{算法}{算法}
+\SetKwInput{KwIn}{输入}
+\SetKwInput{KwOut}{输出}
 % 引用上标
 \makeatletter
 \def\@cite#1#2{\textsuperscript{[{#1\if@tempswa , #2\fi}]}}
@@ -265,6 +270,7 @@
 \@addtoreset{equation}{section}
 \@addtoreset{table}{section}
 \@addtoreset{figure}{section}
+\@addtoreset{algocf}{section}
 \makeatother
 % 更改公式、表、图、（TODO：算法）的编号格式
 \renewcommand{\theequation}{\thesection.\arabic{equation}}
@@ -272,5 +278,7 @@
 \captionsetup[figure]{labelsep=space,labelfont=normalfont}
 \renewcommand{\thetable}{\thesection-\arabic{table}}
 \captionsetup[table]{labelsep=space,labelfont=normalfont}
+\renewcommand{\thealgocf}{\thesection-\arabic{algocf}}
+
 
 \endinput
